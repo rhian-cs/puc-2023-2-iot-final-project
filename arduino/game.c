@@ -1,19 +1,22 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define GAMESIZE 10
+#define GAMESIZE 3
 #define NUMBER_OF_COLORS 4
 
 void setup(int *colorsSequence);
-void loop(int *colorsSequence);
+void loop(int *colorsSequence, int *inputSequence);
 int getKeyPress();
+void delay(int number_of_seconds);
 
 int main()
 {
     int *colorsSequence;
     colorsSequence = (int *)malloc(GAMESIZE * sizeof(int));
+    int *inputSequence;
+    inputSequence = (int *)malloc(GAMESIZE * sizeof(int));
     setup(colorsSequence);
-    loop(colorsSequence);
+    loop(colorsSequence, inputSequence);
 
     return 0;
 }
@@ -29,31 +32,56 @@ void setup(int *colorsSequence)
     }
 }
 
-void loop(int *colorsSequence)
+void loop(int *colorsSequence, int *inputSequence)
 {
-    // for (int i = 0; i < GAMESIZE; i++)
-    // {
-    //     printf("%d-", colorsSequence[i]);
-    // }
-    int colorCode;
-    int try = 0;
+    int inputColorCode;
+    int gameCurrentLenght = 0;
+    int steps = 0;
     int score = 0;
-    while (try < GAMESIZE)
+    int gameOver = 0;
+    int gameWin = 0;
+    while (steps < GAMESIZE && !gameOver)
     {
-        printf("from vec=%d\n", colorsSequence[try]);
-        colorCode = getKeyPress();
-        if (colorCode != -1)
+        for (int i = 0; i <= steps; i++)
         {
-
-            printf("color code=%d\n", colorCode);
-            if (colorCode == colorsSequence[try])
-            {
-                score++;
-            }
-            try++;
+            // turn led with color using colorsSequence[try]
+            printf("turn on LED %d\n", colorsSequence[i]);
+            delay(1000);
+            printf("off\n");
+            // -----------------------------------------
         }
-        printf("score=%d\n", score);
+
+        for (int i = 0; i <= steps; i++)
+        {
+            printf("\nyour turn: ");
+            // get user inputs from mosquitto publisher
+            inputColorCode = getKeyPress();
+            // -----------------------------------------
+            if (inputColorCode != -1)
+            {
+                inputSequence[i] = inputColorCode;
+
+                for (int j = 0; j <= steps; j++)
+                    if (inputSequence[j] == colorsSequence[j])
+                    {
+                        if (j == steps)
+                            score++;
+                        if (score == GAMESIZE)
+                            gameWin = 1;
+                        if (steps == GAMESIZE)
+                            gameOver = 1;
+                    }
+                gameCurrentLenght++;
+            }
+        }
+        printf("score=%d\n\n", score);
+        steps++;
+        delay(2000);
     }
+    if (gameWin)
+        printf("\n\nMAX GRADE! YOU NAILED IT!");
+    else
+        printf("\n\nKEEP TRYING, I TRUST YOU!");
 }
 
 int getKeyPress()
@@ -68,4 +96,12 @@ int getKeyPress()
         return -1;
     }
     return keyPressed;
+}
+
+void delay(int number_of_seconds)
+{
+    int milli_seconds = 1000 * number_of_seconds;
+    clock_t start_time = clock();
+    while (clock() < start_time + milli_seconds)
+        ;
 }
