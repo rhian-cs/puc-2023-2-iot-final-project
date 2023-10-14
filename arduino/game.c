@@ -44,10 +44,11 @@ void loop(int *colorsSequence, int *inputSequence)
     {
         for (int i = 0; i <= steps; i++)
         {
-            // turn led with color using colorsSequence[try]
-            printf("turn on LED %d\n", colorsSequence[i]);
+            // turn ON led with color using colorsSequence[try]
+            printf("turn led ON %d\n", colorsSequence[i]);
+            // emmit buzzer sound in frequency colorsSequence[try]
             delay(1000);
-            printf("off\n");
+            printf("turn led OFF\n");
             // -----------------------------------------
         }
 
@@ -98,10 +99,10 @@ int getKeyPress()
     return keyPressed;
 }
 
-void delay(int number_of_seconds)
+void delay(int numberOfSeconds)
 {
-    int milli_seconds = 1000 * number_of_seconds;
-    clock_t start_time = clock();
-    while (clock() < start_time + milli_seconds)
+    int milliSeconds = 1000 * numberOfSeconds;
+    clock_t startTime = clock();
+    while (clock() < startTime + milliSeconds)
         ;
 }
