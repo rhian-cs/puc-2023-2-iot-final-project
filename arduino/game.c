@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #define GAMESIZE 3
-#define NUMBER_OF_COLORS 4
+#define NUMBER_OF_COLORS 100
 
 void setup(int *colorsSequence);
 void loop(int *colorsSequence, int *inputSequence);
