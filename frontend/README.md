@@ -55,4 +55,5 @@ ESP32->>Client: your_turn
 
 Client->>ESP32: input: "2"
 ESP32->>Client: reject_input
+ESP32->>Client: score: "2"
 ```
