@@ -36,13 +36,15 @@ void loop(int *colorsSequence, int *inputSequence)
 {
     int inputColorCode;
     int gameCurrentLenght = 0;
-    int steps = 0;
+    int turns = 0;
     int score = 0;
+    int step = 0;
     int gameOver = 0;
     int gameWin = 0;
-    while (steps < GAMESIZE && !gameOver)
+    while (turns < GAMESIZE && !gameOver)
     {
-        for (int i = 0; i <= steps; i++)
+
+        for (int i = 0; i <= turns; i++)
         {
             // turn ON led with color using colorsSequence[try]
             printf("turn led ON %d\n", colorsSequence[i]);
@@ -52,7 +54,7 @@ void loop(int *colorsSequence, int *inputSequence)
             // -----------------------------------------
         }
 
-        for (int i = 0; i <= steps; i++)
+        for (int i = 0; i <= turns; i++)
         {
             printf("\nyour turn: ");
             // get user inputs from mosquitto publisher
@@ -62,27 +64,37 @@ void loop(int *colorsSequence, int *inputSequence)
             {
                 inputSequence[i] = inputColorCode;
 
-                for (int j = 0; j <= steps; j++)
-                    if (inputSequence[j] == colorsSequence[j])
-                    {
-                        if (j == steps)
-                            score++;
-                        if (score == GAMESIZE)
-                            gameWin = 1;
-                        if (steps == GAMESIZE)
-                            gameOver = 1;
-                    }
+                // for (int j = 0; j <= turns; j++)
+                // {
+                if (inputSequence[i] == colorsSequence[i])
+                {
+                    // if (i == turns)
+                    step++;
+                    score++;
+                }
+                if (score < step)
+                {
+                    printf("\n!!!!!!!!!!!!! errou\n");
+                }
+                if (score == GAMESIZE)
+                    gameWin = 1;
+                // }
                 gameCurrentLenght++;
             }
         }
-        printf("score=%d\n\n", score);
-        steps++;
+        printf("\ndebug:\n");
+        printf("%d -- step\n", step);
+        printf("%d -- turns\n", turns);
+        printf("%d -- score\n", score);
+        turns++;
+
         delay(2000);
     }
     if (gameWin)
         printf("\n\nMAX GRADE! YOU NAILED IT!");
     else
         printf("\n\nKEEP TRYING, I TRUST YOU!");
+    printf("score=%d\n\n", score);
 }
 
 int getKeyPress()
