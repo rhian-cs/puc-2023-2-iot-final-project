@@ -1,8 +1,4 @@
-# Making a Full-Stack App with Vue, Vite and Express that supports Hot Reload
-
-This project showcases how to make a full-stack app using Vue, Vite and Express.
-
-It is part of my blogpost at the Codeminer42 Blog: [Making a Full-Stack App with Vue, Vite and Express that supports Hot Reload](https://blog.codeminer42.com/making-a-full-stack-app-with-vue-vite-and-express-that-supports-hot-reload/)
+# IoT Frontend
 
 ## Installation
 
@@ -26,3 +22,11 @@ Build and run the app for production:
 npm run build
 npm start
 ```
+
+## Events
+
+MQTT Topic: `com.stonkstoys.game.genius`
+
+Events:
+
+- `reset`: Restarts the game
