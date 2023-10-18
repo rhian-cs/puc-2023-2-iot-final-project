@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define GAMESIZE 3
-#define NUMBER_OF_COLORS 100
+#define GAMESIZE 100
+#define NUMBER_OF_COLORS 4
 
 void setup(int *colorsSequence);
 void loop(int *colorsSequence, int *inputSequence);
