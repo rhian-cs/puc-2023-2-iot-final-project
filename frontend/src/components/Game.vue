@@ -31,15 +31,21 @@ fetch(`/api/v1/hello`)
 
   <div class="grid">
     <div></div>
-    <div class="cell"><Button tone="#f00" offset="2.75em" /></div>
+    <div class="cell">
+      <Button tone="#f00" offset="2.75em" colorIndex="0" />
+    </div>
     <div></div>
 
-    <div class="cell"><Button tone="#0f0" offset="2.25em" /></div>
+    <div class="cell">
+      <Button tone="#0f0" offset="2.25em" colorIndex="1" />
+    </div>
     <div></div>
-    <div class="cell"><Button tone="#00f" /></div>
+    <div class="cell"><Button tone="#00f" colorIndex="2" /></div>
 
     <div></div>
-    <div class="cell"><Button tone="#f0f" offset="-1.5em" /></div>
+    <div class="cell">
+      <Button tone="#f0f" offset="-1.5em" colorIndex="3" />
+    </div>
     <div></div>
   </div>
 </template>

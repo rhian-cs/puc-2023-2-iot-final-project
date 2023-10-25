@@ -6,7 +6,7 @@ if (!!window.EventSource) {
   source.addEventListener(
     "message",
     function (e) {
-      alert(e.data);
+      console.log(e.data);
     },
     false
   );
