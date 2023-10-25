@@ -7,6 +7,7 @@ import {
   BrokerMessageHandler,
   brokerMessageHandlers,
 } from "./BrokerMessageHandler.js";
+import { TOPIC, mqttClient } from "./mqtt.js";
 
 const port = process.env.PORT || 3000;
 const publicPath = path.join(path.resolve(), "public");
@@ -18,7 +19,7 @@ app.get("/api/v1/hello", (_req, res) => {
   res.json({ message: "Hello, world!" });
 });
 
-app.get("/sse", function (req, res) {
+app.get("/sse", (req, res) => {
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
@@ -26,6 +27,16 @@ app.get("/sse", function (req, res) {
   });
 
   brokerMessageHandlers.push(new BrokerMessageHandler(res));
+});
+
+app.post("/publish", (req, res) => {
+  try {
+    mqttClient.publish(TOPIC, req.query.data);
+    res.status(200).json({ message: "OK" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 if (process.env.NODE_ENV === "production") {
