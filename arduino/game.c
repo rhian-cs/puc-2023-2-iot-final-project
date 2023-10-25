@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define GAMESIZE 100
+#define GAMESIZE 3
 #define NUMBER_OF_COLORS 4
 
 void setup(int *colorsSequence);
@@ -17,14 +17,12 @@ int main()
     inputSequence = (int *)malloc(GAMESIZE * sizeof(int));
     setup(colorsSequence);
     loop(colorsSequence, inputSequence);
-
     return 0;
 }
 
 void setup(int *colorsSequence)
 {
     srand(time(NULL));
-
     for (int i = 0; i < GAMESIZE; i++)
     {
         int random = rand() % NUMBER_OF_COLORS + 1;
@@ -40,60 +38,44 @@ void loop(int *colorsSequence, int *inputSequence)
     int score = 0;
     int step = 0;
     int gameOver = 0;
-    int gameWin = 0;
     while (turns < GAMESIZE && !gameOver)
     {
-
         for (int i = 0; i <= turns; i++)
         {
-            // turn ON led with color using colorsSequence[try]
-            printf("turn led ON %d\n", colorsSequence[i]);
-            // emmit buzzer sound in frequency colorsSequence[try]
+            // here: command to turn on led (colorsSequence[i])
+            printf("\nturn led ON %d\n", colorsSequence[i]);
+            // here: command to emit buzzer sound (colorsSequence[i])
             delay(1000);
-            printf("turn led OFF\n");
-            // -----------------------------------------
-        }
 
+            // here: command to turn off led (colorsSequence[i])
+            printf("turn led OFF\n");
+        }
         for (int i = 0; i <= turns; i++)
         {
             printf("\nyour turn: ");
-            // get user inputs from mosquitto publisher
-            inputColorCode = getKeyPress();
-            // -----------------------------------------
-            if (inputColorCode != -1)
-            {
-                inputSequence[i] = inputColorCode;
-
-                // for (int j = 0; j <= turns; j++)
-                // {
-                if (inputSequence[i] == colorsSequence[i])
-                {
-                    // if (i == turns)
-                    step++;
-                    score++;
+            inputSequence[i] = getKeyPress();
+            if(inputSequence != -1){
+                step++;
+                for(int j = 0; j < step; j++){
+                    if(inputSequence[j] != colorsSequence[j]){
+                        printf("\nERROU\n");
+                        gameOver = 1;
+                    }
+                    else{
+                        score++;
+                    }
                 }
-                if (score < step)
-                {
-                    printf("\n!!!!!!!!!!!!! errou\n");
-                }
-                if (score == GAMESIZE)
-                    gameWin = 1;
-                // }
-                gameCurrentLenght++;
             }
+            else i--;
         }
-        printf("\ndebug:\n");
-        printf("%d -- step\n", step);
-        printf("%d -- turns\n", turns);
-        printf("%d -- score\n", score);
+        step=0;
         turns++;
-
         delay(2000);
     }
-    if (gameWin)
-        printf("\n\nMAX GRADE! YOU NAILED IT!");
+    if (!gameOver)
+        printf("\n\nMAX GRADE! YOU NAILED IT!\n");
     else
-        printf("\n\nKEEP TRYING, I TRUST YOU!");
+        printf("\n\nKEEP TRYING, I TRUST YOU!\n");
     printf("score=%d\n\n", score);
 }
 
@@ -113,7 +95,7 @@ int getKeyPress()
 
 void delay(int numberOfSeconds)
 {
-    int milliSeconds = 1000 * numberOfSeconds;
+    int milliSeconds = .5 * numberOfSeconds;
     clock_t startTime = clock();
     while (clock() < startTime + milliSeconds)
         ;
