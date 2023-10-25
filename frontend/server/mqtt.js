@@ -1,4 +1,5 @@
 import mqtt from "mqtt";
+import { brokerMessageHandlers } from "./BrokerMessageHandler.js";
 
 const MQTT_HOST = "mqtt://test.mosquitto.org";
 const TOPIC = "teste123";
@@ -18,5 +19,10 @@ client.on("message", (_topic, message) => {
   message = message.toString(); // message is Buffer
 
   console.log("MQTT says", message);
+
+  brokerMessageHandlers.forEach((handler) => {
+    handler.emit(message);
+  });
+
   // client.end();
 });
