@@ -2,7 +2,7 @@ import mqtt from "mqtt";
 import { brokerMessageHandlers } from "./BrokerMessageHandler.js";
 
 const MQTT_HOST = "mqtt://test.mosquitto.org";
-export const TOPIC = "teste123";
+export const TOPIC = "com.stonkstoys.game.genius";
 
 const client = mqtt.connect(MQTT_HOST);
 

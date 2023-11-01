@@ -1,24 +1,4 @@
-<script setup>
-import { ref } from "vue";
-import Button from "./Button.vue";
-
-defineProps({
-  msg: String,
-});
-
-const count = ref(0);
-
-const serverHello = ref({});
-
-fetch(`/api/v1/hello`)
-  .then((r) => r.json())
-  .then(({ message }) => {
-    serverHello.value = message;
-  });
-</script>
-
 <template>
-  <!-- <h1>{{ serverHello }}</h1> -->
   <pre :style="{ marginLeft: '3em', marginBottom: '5em' }">
 ░██████╗░███████╗███╗░░██╗██╗██╗░░░██╗░██████╗
 ██╔════╝░██╔════╝████╗░██║██║██║░░░██║██╔════╝
@@ -32,23 +12,86 @@ fetch(`/api/v1/hello`)
   <div class="grid">
     <div></div>
     <div class="cell">
-      <Button tone="#f00" offset="2.75em" colorIndex="0" />
+      <Button
+        :locked="locked"
+        tone="#f00"
+        toneDisabled="#a00"
+        offset="3.75vw"
+        colorIndex="0"
+        @click="lock"
+      />
     </div>
     <div></div>
 
     <div class="cell">
-      <Button tone="#0f0" offset="2.25em" colorIndex="1" />
+      <Button
+        :locked="locked"
+        tone="#0f0"
+        toneDisabled="#0a0"
+        offset="2.25vw"
+        colorIndex="1"
+        @click="lock"
+      />
     </div>
     <div></div>
-    <div class="cell"><Button tone="#00f" colorIndex="2" /></div>
+    <div class="cell">
+      <Button
+        :locked="locked"
+        tone="#00f"
+        toneDisabled="#00a"
+        colorIndex="2"
+        @click="lock"
+      />
+    </div>
 
     <div></div>
     <div class="cell">
-      <Button tone="#f0f" offset="-1.5em" colorIndex="3" />
+      <Button
+        :locked="locked"
+        tone="#ff0"
+        toneDisabled="#aa0"
+        offset="-3.25vw"
+        colorIndex="3"
+        @click="lock"
+      />
     </div>
     <div></div>
   </div>
 </template>
+
+<script>
+import { listenToMQTT } from "../sse";
+
+import Button from "./Button.vue";
+
+export default {
+  name: "Game",
+  components: { Button },
+  data() {
+    return {
+      locked: true,
+    };
+  },
+  mounted() {
+    this.locked = false; // TODO: remove me
+
+    listenToMQTT({
+      onMessage: (message) => {
+        switch (message) {
+          case "ok":
+            this.locked = false;
+            break;
+        }
+      },
+    });
+  },
+  methods: {
+    lock() {
+      // this.locked = true;
+    },
+  },
+};
+</script>
 
 <style scoped>
 .grid {
