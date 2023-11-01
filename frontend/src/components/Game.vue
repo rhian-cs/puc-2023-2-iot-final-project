@@ -9,7 +9,7 @@
 </pre
   >
 
-  <ResetButton />
+  <ResetButton @click="lock" />
 
   <div class="grid">
     <div></div>

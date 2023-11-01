@@ -9,6 +9,7 @@ export default {
   name: "ResetButton",
   methods: {
     async publishClick() {
+      this.$emit("click");
       await axios.post("/publish?data=reset");
     },
   },
