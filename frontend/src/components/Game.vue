@@ -9,6 +9,8 @@
 </pre
   >
 
+  <ResetButton />
+
   <div class="grid">
     <div></div>
     <div class="cell">
@@ -63,17 +65,18 @@
 import { listenToMQTT } from "../sse";
 
 import Button from "./Button.vue";
+import ResetButton from "./ResetButton.vue";
 
 export default {
   name: "Game",
-  components: { Button },
+  components: { Button, ResetButton },
   data() {
     return {
       locked: true,
     };
   },
   mounted() {
-    this.locked = false; // TODO: remove me
+    // this.locked = false; // TODO: remove me
 
     listenToMQTT({
       onMessage: (message) => {
@@ -87,7 +90,7 @@ export default {
   },
   methods: {
     lock() {
-      // this.locked = true;
+      this.locked = true;
     },
   },
 };

@@ -42,8 +42,7 @@ export default {
 </script>
 
 <style>
-.my-button,
-.my-button:disabled {
+.my-button {
   width: 20vw;
   height: calc(10vw + 5px);
   transform: skew(-15deg);
@@ -53,7 +52,7 @@ export default {
   border-radius: 12px;
 }
 
-.my-button:active {
+.my-button:active:not(.my-button:disabled) {
   margin-top: 5px;
   height: calc(10vw);
   box-shadow: inset -3px -3px 4px 0px rgba(0, 0, 0, 0.75);
@@ -62,5 +61,6 @@ export default {
   cursor: not-allowed;
   margin-top: 0 !important;
   height: calc(10vw + 5px) !important;
+  border: 0;
 }
 </style>
