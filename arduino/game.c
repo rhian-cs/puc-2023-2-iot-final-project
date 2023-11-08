@@ -16,6 +16,7 @@ const char* ssid = "PUCPCALDAS";
 const char* mqttServer = "com.stonkstoys.game.genius";
 WiFiClient espClient;
 PubSubClient client(espClient);
+char mqttpayload [1] = {'0'};
 
 void setup() 
 {
@@ -112,7 +113,9 @@ void playGame(){
 
     for (int i = 0; i <= turns; i++){
       // maybe this value can come as char
-      inputSequence[i] = 
+      // I think this is the function: memset()... ref below:
+      // https://forum.arduino.cc/t/subscribe-and-store-value-into-a-variable-mqtt/1045522/2 
+      inputSequence[i] = mqttpayload;
       //sprintf(inputSequence[i]);
 
       if(inputSequence != -1){
