@@ -41,6 +41,7 @@ void setup()
     int random = rand() % NUMBER_OF_COLORS + 1;
     colorsSequence[i] = random;
   }
+  client.subscribe(mqttServer);
 
   pinMode(PIN_LED_YELLOW, OUTPUT);
   pinMode(PIN_LED_BLUE, OUTPUT);
@@ -68,49 +69,51 @@ void playGame(){
 
   while (turns < GAMESIZE && !gameOver){
     for (int i = 0; i <= turns; i++){
-      switch(colorsSequence[i])
-      case 0:
-        digitalWrite(PIN_LED_YELLOW, HIGH);
-        // add buzzer / calculate frequency based on i value
-        break;
-      case 1:
-        digitalWrite(PIN_LED_RED, HIGH);
-        // add buzzer / calculate frequency based on i value
-        break;
-      case 2:
-        digitalWrite(PIN_LED_BLUE, HIGH);
-        // add buzzer / calculate frequency based on i value
-        break;
-      case 3:
-        digitalWrite(PIN_LED_GREEN, HIGH);
-        // add buzzer / calculate frequency based on i value
-        break;
+      switch(colorsSequence[i]){
+        case 0:
+          digitalWrite(PIN_LED_YELLOW, HIGH);
+          // add buzzer / calculate frequency based on i value
+          break;
+        case 1:
+          digitalWrite(PIN_LED_RED, HIGH);
+          // add buzzer / calculate frequency based on i value
+          break;
+        case 2:
+          digitalWrite(PIN_LED_BLUE, HIGH);
+          // add buzzer / calculate frequency based on i value
+          break;
+        case 3:
+          digitalWrite(PIN_LED_GREEN, HIGH);
+          // add buzzer / calculate frequency based on i value
+          break;
+      }
 
       delay(BIP_BIP_SPEED);
 
-      switch(colorsSequence[i])
-      case 0:
-        digitalWrite(PIN_LED_YELLOW, LOW);
-        // desligate buzzer
-        break;
-      case 1:
-        digitalWrite(PIN_LED_RED, LOW);
-        // desligate buzzer
-        break;
-      case 2:
-        digitalWrite(PIN_LED_BLUE, LOW);
-        // desligate buzzer
-        break;
-      case 3:
-        digitalWrite(PIN_LED_GREEN, LOW);
-        // desligate buzzer
-        break;
+      switch(colorsSequence[i]){
+        case 0:
+          digitalWrite(PIN_LED_YELLOW, LOW);
+          // desligate buzzer
+          break;
+        case 1:
+          digitalWrite(PIN_LED_RED, LOW);
+          // desligate buzzer
+          break;
+        case 2:
+          digitalWrite(PIN_LED_BLUE, LOW);
+          // desligate buzzer
+          break;
+        case 3:
+          digitalWrite(PIN_LED_GREEN, LOW);
+          // desligate buzzer
+          break;
+      }
     }
 
     for (int i = 0; i <= turns; i++){
       // maybe this value can come as char
-      inputSequence[i] = client.subscribe(mqttServer);
-      sprintf(inputSequence[i]);
+      inputSequence[i] = 
+      //sprintf(inputSequence[i]);
 
       if(inputSequence != -1){
         step++;
