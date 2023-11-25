@@ -10,7 +10,7 @@ export default {
   methods: {
     async publishClick() {
       this.$emit("click");
-      await axios.post("/publish?data=reset");
+      await axios.post("/publish?data=4");
     },
   },
 };
