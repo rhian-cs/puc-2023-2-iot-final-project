@@ -15,6 +15,7 @@
     <div></div>
     <div class="cell">
       <Button
+        :locked="locked"
         tone="#f00"
         toneDisabled="#a00"
         offset="3.75vw"
@@ -26,6 +27,7 @@
 
     <div class="cell">
       <Button
+        :locked="locked"
         tone="#0f0"
         toneDisabled="#0a0"
         offset="2.25vw"
@@ -36,6 +38,7 @@
     <div></div>
     <div class="cell">
       <Button
+        :locked="locked"
         tone="#00f"
         toneDisabled="#00a"
         colorIndex="2"
@@ -46,6 +49,7 @@
     <div></div>
     <div class="cell">
       <Button
+        :locked="locked"
         tone="#ff0"
         toneDisabled="#aa0"
         offset="-3.25vw"
