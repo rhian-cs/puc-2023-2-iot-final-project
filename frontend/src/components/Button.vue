@@ -18,7 +18,7 @@ export default {
   props: ["tone", "toneDisabled", "offset", "colorIndex", "locked"],
   methods: {
     async publishClick() {
-      const payload = `input:${this.colorIndex}`;
+      const payload = `${this.colorIndex}`;
       this.$emit("click");
       await axios.post("/publish?data=" + payload);
     },
