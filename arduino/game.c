@@ -3,10 +3,10 @@
 #include <TaskScheduler.h>
 #define GAMESIZE 10
 #define NUMBER_OF_COLORS 4
-#define PIN_LED_YELLOW 18
-#define PIN_LED_RED 2
-#define PIN_LED_BLUE 4
-#define PIN_LED_GREEN 17
+#define PIN_LED_YELLOW 14
+#define PIN_LED_RED 27
+#define PIN_LED_BLUE 26
+#define PIN_LED_GREEN 12
 // #define PIN_BUZZER 5
 // #define PIN_DISPLAY 6
 
