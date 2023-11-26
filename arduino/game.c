@@ -184,7 +184,7 @@ void sing(int tone)
 
 void callback(char *topic, byte *payload, unsigned int length)
 {
-  if (strcmp(topic, "com.stonkstoys.game.genius") == 0)
+  if (strcmp(topic, mqttTopic) == 0)
   {
     if (payload[0] == 48) // input 0
     {
