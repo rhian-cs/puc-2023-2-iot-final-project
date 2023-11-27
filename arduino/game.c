@@ -3,11 +3,11 @@
 #include <TaskScheduler.h>
 #define GAMESIZE 10
 #define NUMBER_OF_COLORS 4
-#define PIN_LED_YELLOW 14
-#define PIN_LED_RED 27
-#define PIN_LED_BLUE 26
-#define PIN_LED_GREEN 12
-// #define PIN_BUZZER 5
+#define PIN_LED_YELLOW 18
+#define PIN_LED_RED 2
+#define PIN_LED_BLUE 4
+#define PIN_LED_GREEN 17
+#define PIN_BUZZER 19
 // #define PIN_DISPLAY 6
 
 const char *ssid = "ssid";
@@ -59,7 +59,7 @@ void setup()
   pinMode(PIN_LED_BLUE, OUTPUT);
   pinMode(PIN_LED_GREEN, OUTPUT);
   pinMode(PIN_LED_RED, OUTPUT);
-  //  pinMode(PIN_BUZZER, OUTPUT);
+  pinMode(PIN_BUZZER, OUTPUT);
   //  pinMode(PIN_DISPLAY, OUTPUT);
 
   reconnect();
@@ -147,36 +147,40 @@ void playGame()
   playGameTask.forceNextIteration();
 }
 
-void sing(int tone)
+void sing(int color)
 {
-  switch (tone)
+  switch (color)
   {
   case 1:
     digitalWrite(PIN_LED_YELLOW, HIGH);
-    // add buzzer / calculate frequency based on i value
+    tone(PIN_BUZZER, 261);
     delay(700);
     digitalWrite(PIN_LED_YELLOW, LOW);
+    noTone(PIN_BUZZER);
     delay(700);
     break;
   case 2:
     digitalWrite(PIN_LED_RED, HIGH);
-    // add buzzer / calculate frequency based on i value
+    tone(PIN_BUZZER, 293);
     delay(700);
     digitalWrite(PIN_LED_RED, LOW);
+    noTone(PIN_BUZZER);
     delay(700);
     break;
   case 3:
     digitalWrite(PIN_LED_BLUE, HIGH);
-    // add buzzer / calculate frequency based on i value
+    tone(PIN_BUZZER, 329);
     delay(700);
     digitalWrite(PIN_LED_BLUE, LOW);
+    noTone(PIN_BUZZER);
     delay(700);
     break;
   case 4:
     digitalWrite(PIN_LED_GREEN, HIGH);
-    // add buzzer / calculate frequency based on i value
+    tone(PIN_BUZZER, 349);
     delay(700);
     digitalWrite(PIN_LED_GREEN, LOW);
+    noTone(PIN_BUZZER);
     delay(700);
     break;
   }
