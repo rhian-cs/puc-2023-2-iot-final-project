@@ -2,10 +2,9 @@
   <button
     class="my-button"
     :style="{
-      ...buttonStyles,
+      backgroundColor: tone,
       marginLeft: offset,
     }"
-    :disabled="locked"
     @click="publishClick"
   ></button>
 </template>
@@ -15,27 +14,12 @@ import axios from "axios";
 
 export default {
   name: "Button",
-  props: ["tone", "toneDisabled", "offset", "colorIndex", "locked"],
+  props: ["tone", "toneDisabled", "offset", "colorIndex"],
   methods: {
     async publishClick() {
       const payload = `${this.colorIndex}`;
       this.$emit("click");
       await axios.post("/publish?data=" + payload);
-    },
-  },
-  computed: {
-    buttonStyles() {
-      return this.locked ? this.disabledStyles : this.enabledStyles;
-    },
-    enabledStyles() {
-      return {
-        backgroundColor: this.tone,
-      };
-    },
-    disabledStyles() {
-      return {
-        backgroundColor: this.toneDisabled,
-      };
     },
   },
 };
